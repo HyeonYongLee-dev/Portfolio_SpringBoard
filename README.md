@@ -7,5 +7,5 @@
 
 ## 개발환경
 >Front end
-# bootstrap3
-# jQuery
+- bootstrap3
+- jQuery
