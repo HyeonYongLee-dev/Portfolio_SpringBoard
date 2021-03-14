@@ -7,7 +7,6 @@
 
 ## 개발환경
 >Front end
-- Bootstrap 3.3.2
 - jQuery 3
 
 >Back end
@@ -18,8 +17,3 @@
 - Oracle 11.2.0.1.0
 - JDK 1.7
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style5" />
-
-## 제작기간 - 2021.02.14 ~ 2021.02.XX (작업기간: XX일, 주말 제외 주 6일)
-> 1주차(2021.02.14 ~ 2021.02.XX), view page Modeling, DB Modeling
-- 2.14 개발환경 세팅 및 프로젝트 주제 확정
-- 2.15 Bootstrap을 이용한 HTML view page 설계 및 제작
