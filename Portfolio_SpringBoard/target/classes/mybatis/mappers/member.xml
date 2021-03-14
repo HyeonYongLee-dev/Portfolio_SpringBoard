@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   <!-- mybatis mapper 설정 -->
+
+<!-- member.xml의 네임 스페이스 지정 -->   
+<mapper namespace="mapper.member">
+	<!-- type:SQL문을 실행 후 반환되는 레코드들을  memberVO 빈에 저장 -->
+	<!-- id: resultMap 호출시 사용 -->
+	<resultMap type="memberVO" id="memResult">
+		<!-- 레코드의 컬럼 이름에 대해 memberVO의 같은 속성에 값 저장한다 -->
+		<result property="id" column="id"/>
+		<result property="pwd" column="pwd"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="joinDate" column="joinDate"/>
+	</resultMap>
+	
+	<!-- id: DAO에서 id를 이용해 해당 SQL문을 호출한다 -->
+	<!-- resultMap: 반환되는 레코드들을 memResult에 저장한다 -->
+	<select id="selectAllMemberList" resultMap="memResult">
+		<![CDATA[
+			select * from t_member order by joinDate desc
+		]]>
+	</select>
+	
+	<!-- parameterType: MemberDAO에서 SQL문 호출시 전달되는 매개변수의 데이터 타입 즉 MemberDAO에서 MemberVO의 속성에 저장해서 DB에 넘긴다-->
+	<!-- 회원 등록은 id, pwd, name, email 값들을 받으므로 memberVO에 객체 형태로 저장 -->
+	<insert id="insertMember"  parameterType="memberVO">
+		<![CDATA[
+		 insert into t_member(id, pwd, name, email)
+		 values(#{id}, #{pwd}, #{name}, #{email})
+		]]>      
+	</insert>
+	
+	<!-- parameterType=회원 id는 문자열이므로 parameterType에 String으로 저장 -->
+	<!-- id=#{id}: 전달된 id를 조건 값으로 해당 회원 정보를 삭제한다 -->
+	<select id="deleteMember" parameterType="String">
+		<![CDATA[
+			delete from t_member
+			where
+			id=#{id}
+		]]>
+	</select>
+	
+	<!-- parameterType: SQL문에 사용될 데이터를 memberVO빈에 설정해 DB에 전달한다 -->
+	<!-- id=#{id}: memberVO빈의 id 속성 값을 조건 값으로 사용하여 회원 정보 update  -->
+	<select id="updateMember" parameterType="memberVO">
+		<![CDATA[
+			update t_member
+			set pwd=#{pwd}, name=#{name}, email=#{email}
+			where
+			id=#{id}
+		]]>
+	
+	</select>
+	
+	
+	<select id="loginById" resultType="memberVO" parameterType="memberVO">
+		<![CDATA[
+			select * from t_member
+			where id=#{id} and pwd=#{pwd}
+		]]>
+	</select>
+</mapper>   
